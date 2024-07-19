@@ -29,16 +29,15 @@ const Navbar = () => {
 	  };
   
 	  const collapse = new Collapse(targetEl, triggerEl, options, instanceOptions);
-	  collapse.toggle();
 	}, []);
   
 	return (
 		<div className='mb-10'>
 			<nav className='flex items-center justify-between py-3'>
 				<div className='flex flex-shrink-0 items-center'>
-					<img className='mx-2 w-16 h-16' src={logo} alt='logo'/>
+					<img className='w-16 h-16' src={logo} alt='logo'/>
 				</div>
-				<div className='m-8 flex items-center justify-center gap-5 text-3xl'>
+				<div className='m-8 items-center justify-center gap-5 text-3xl hidden lg:flex'>
 					<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href='https://www.linkedin.com/in/sri-manikandan/'><FaLinkedin/></motion.a>
 					<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href='https://github.com/Sri-Manikandan'><FaGithub/></motion.a>
 					<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href='https://www.instagram.com/_manish._7/'><FaInstagram/></motion.a>

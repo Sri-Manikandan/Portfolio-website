@@ -13,7 +13,7 @@ const About = () => {
             <img className='rounded-2xl w-3/4 lg:w-1/2 h-3/4' src={aboutImg} />
             <div className="hidden lg:block">
               <h2 className='font-medium mt-40 text-3xl px-12'>Engaged in <span className='bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text text-transparent'>15+ Hackathons</span> Across Diverse Locales, Blending Online And Offline Formats</h2>
-              <p className='max-w-xl pb-6 pt-4'>I'm seasoned in hackathons, having participated in over 15 events, both online and offline, across various states. With each competition, I've honed my problem-solving skills and fostered innovation, consistently delivering impactful solutions under pressure.</p>
+              <p className='max-w-xl pl-12 pt-4'>I'm seasoned in hackathons, having participated in over 15 events, both online and offline, across various states. With each competition, I've honed my problem-solving skills and fostered innovation, consistently delivering impactful solutions under pressure.</p>
             </div>
           </div>
         </div>

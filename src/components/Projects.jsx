@@ -7,7 +7,7 @@ const Projects = () => {
         <h1 className='my-20 text-center text-4xl'>Projects</h1>
         <div>
             {PROJECTS.map((project, index) => (
-                <div key={index} className='mb-20 flex flex-wrap lg:justify-center text-center lg:text-left'>
+                <div key={index} className='mb-20 flex flex-wrap lg:justify-center text-center lg:text-left lg:gap-20'>
                     <div className='w-full lg:w-1/4 flex justify-center items-center'>
                         <img src={project.image} width={300} height={300} alt={project.title}  className='mb-6 rounded-md'/>
                     </div>

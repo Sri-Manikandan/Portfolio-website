@@ -10,7 +10,7 @@ const About = () => {
       <h2 className='my-20 text-center text-4xl'>About <span className='text-neutral-500'>Me</span></h2>
       <div className="flex flex-wrap">
         <div className="w-full lg:w-1/2 lg:p-8">
-          <motion.div whileInView={{opacity:1 , scale:1}} initial={{opacity:0, scale:0.7}} transition={{duration:1.25}} className="flex flex-col items-center justify-center">
+          <motion.div whileInView={{opacity:1 , scale:1}} initial={{opacity:0, scale:0.7}} transition={{duration:0.7}} className="flex flex-col items-center justify-center">
             <img className='rounded-2xl w-3/4 lg:w-1/2 h-3/4' src={aboutImg} />
             <div className="hidden lg:block">
               <h2 className='font-medium mt-40 text-3xl px-12'>Engaged in <span className='bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text text-transparent'>15+ Hackathons</span> Across Diverse Locales, Blending Online And Offline Formats</h2>
@@ -19,7 +19,7 @@ const About = () => {
           </motion.div>
         </div>
         <div className="w-full lg:w-1/2">
-          <motion.div whileInView={{opacity:1 , scale:1}} initial={{opacity:0, scale:0.7}} transition={{duration:1.25}} className="flex justify-center items-center lg:justify-start flex-col">
+          <motion.div whileInView={{opacity:1 , scale:1}} initial={{opacity:0, scale:0.7}} transition={{duration:0.7}} className="flex justify-center items-center lg:justify-start flex-col">
             <p className='my-2 max-w-xl py-6'>{ABOUT_TEXT}</p>
             <img className='rounded-2xl lg:mt-40 w-3/4 h-1/2' src={hackimg}/>
             <div className="lg:hidden">

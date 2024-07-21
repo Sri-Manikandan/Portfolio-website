@@ -10,7 +10,7 @@ const Projects = () => {
             {PROJECTS.map((project, index) => (
                 <div key={index} className='mb-20 flex flex-wrap lg:justify-center lg:gap-20'>
                     <motion.div whileInView={{x:0,opacity:1}} initial={{x:-100,opacity:0}} transition={{duration:0.7}} className='w-full lg:w-1/4 flex justify-center items-center'>
-                        <img src={project.image} width={300} height={300} alt={project.title}  className='mb-6 rounded-md'/>
+                        <img src={project.image} width={330} height={300} alt={project.title}  className='mb-6 rounded-md'/>
                     </motion.div>
                     <motion.div whileInView={{x:0,opacity:1}} initial={{x:100,opacity:0}} transition={{duration:0.7}} className="w-full max-w-xl lgw-3/4 flex flex-wrap gap-4">
                         <h6 className='mb-2 font-semibold text-2xl w-full text-center lg:w-screen lg:text-left'>{project.title}</h6>

@@ -1,86 +1,114 @@
-import React, { useEffect } from 'react'
-import logo from "../assets/SM-logo.png"
-import { FaLinkedin,FaGithub,FaInstagram, FaFacebook } from 'react-icons/fa'
-import { FaSquareXTwitter } from 'react-icons/fa6'
-import { Collapse } from 'flowbite';
-import { motion } from 'framer-motion';
-import { Link} from 'react-scroll';
+import { useState, useEffect } from 'react'
+import { FaLinkedin, FaGithub } from 'react-icons/fa'
+import { motion, AnimatePresence } from 'framer-motion'
+import { SOCIAL_LINKS } from '../constants'
+
+const NAV_ITEMS = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Contact', href: '#contact' },
+]
 
 const Navbar = () => {
-	useEffect(() => {
-	  const targetEl = document.getElementById('targetEl');
-	  const triggerEl = document.getElementById('triggerEl');
-  
-	  const options = {
-		onCollapse: () => {
-		  console.log('element has been collapsed');
-		},
-		onExpand: () => {
-		  console.log('element has been expanded');
-		},
-		onToggle: () => {
-		  console.log('element has been toggled');
-		},
-	  };
-  
-	  const instanceOptions = {
-		id: 'targetEl',
-		override: true,
-	  };
-  
-	  const collapse = new Collapse(targetEl, triggerEl, options, instanceOptions);
-	}, []);
-  
-	return (
-		<div className='mb-10'>
-			<nav className='flex items-center justify-between py-3'>
-				<div className='flex flex-shrink-0 items-center'>
-					<img className='w-16 h-16' src={logo} alt='logo'/>
-				</div>
-				<div className='m-8 items-center justify-center gap-5 text-3xl hidden lg:flex'>
-					<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href='https://www.linkedin.com/in/sri-manikandan/'><FaLinkedin/></motion.a>
-					<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href='https://github.com/Sri-Manikandan'><FaGithub/></motion.a>
-					<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href='https://www.instagram.com/_manish._7/'><FaInstagram/></motion.a>
-					<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href='https://x.com/Manish_2750'><FaSquareXTwitter/></motion.a>
-					<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href='https://www.facebook.com/SriManikandanR'><FaFacebook/></motion.a>
-				</div>
-				<button type="button" id="triggerEl" aria-expanded="false" className="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-					<svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-						<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
-					</svg>
-				</button>
-			</nav>
-			<div className="hidden w-full" id="targetEl">
-				<ul className="flex flex-col font-medium rounded-lg bg-transparent text-2xl text-transparent justify-center items-center p-2 gap-1 text-center">
-					<li>
-					<Link to="home" smooth={true} duration={500}>
-						<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href="/" className="block py-2 px-3 w-full rounded bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text hover:text-white">Home</motion.a>
-					</Link>
-					</li>
-					<li>
-					<Link to="about" smooth={true} duration={500}>
-						<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href="/about" className="block py-2 px-3 w-full rounded bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text hover:text-white">About me</motion.a>
-					</Link>
-					</li>
-					<li>
-					<Link to="skills" smooth={true} duration={500}>
-						<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href="/skills" className="block py-2 px-3 w-full rounded bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text hover:text-white">My Skills</motion.a>
-					</Link>
-					</li>
-					<li>
-					<Link to="projects" smooth={true} duration={500}>
-						<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href="/projects" className="block py-2 px-3 w-full rounded bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text hover:text-white">Projects</motion.a>
-					</Link>
-					</li>
-					<li>
-					<Link to="contact" smooth={true} duration={500}>
-						<motion.a whileHover={{scale:1.1}} whileTap={{scale:0.9}} href="/contact" className="block py-2 px-3 w-full rounded bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text hover:text-white">Contact Me</motion.a>
-					</Link>
-					</li>
-				</ul>
-			</div>
-		</div>
-	);
-  };
-  
-  export default Navbar;
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-surface/80 backdrop-blur-xl border-b border-surface-border'
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="#home" className="font-display font-bold text-xl tracking-tight hover:text-accent-teal transition-colors">
+          SM
+        </a>
+
+        <div className="hidden md:flex items-center gap-8">
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className="text-sm text-text-secondary hover:text-accent-teal transition-colors duration-200 font-medium"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+
+        <div className="hidden md:flex items-center gap-4">
+          <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer"
+            className="text-text-secondary hover:text-accent-teal transition-colors">
+            <FaLinkedin size={18} />
+          </a>
+          <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer"
+            className="text-text-secondary hover:text-accent-teal transition-colors">
+            <FaGithub size={18} />
+          </a>
+        </div>
+
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5"
+        >
+          <span className={`w-6 h-0.5 bg-text-primary transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`w-6 h-0.5 bg-text-primary transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
+          <span className={`w-6 h-0.5 bg-text-primary transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-surface backdrop-blur-xl border-b border-surface-border overflow-hidden"
+          >
+            <div className="px-6 py-6 flex flex-col gap-4">
+              {NAV_ITEMS.map((item, i) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => setIsOpen(false)}
+                  className="text-lg font-display font-medium text-text-secondary hover:text-accent-teal transition-colors"
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+              <div className="flex gap-4 pt-4 border-t border-surface-border">
+                <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-accent-teal transition-colors">
+                  <FaLinkedin size={20} />
+                </a>
+                <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-accent-teal transition-colors">
+                  <FaGithub size={20} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  )
+}
+
+export default Navbar

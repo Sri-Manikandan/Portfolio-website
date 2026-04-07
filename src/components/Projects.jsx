@@ -1,27 +1,114 @@
-import React from 'react'
-import { PROJECTS } from '../constants';
-import { motion } from 'framer-motion';
+import { useRef } from 'react'
+import { PROJECTS } from '../constants'
+import { motion } from 'framer-motion'
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
+
+const ProjectCard = ({ project, index }) => {
+  const cardRef = useRef(null)
+
+  const handleMouseMove = (e) => {
+    const card = cardRef.current
+    if (!card) return
+    const rect = card.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
+    card.style.setProperty('--mouse-x', `${x}%`)
+    card.style.setProperty('--mouse-y', `${y}%`)
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      className={`glow-card p-6 md:p-8 flex flex-col ${
+        project.featured ? 'md:col-span-2 lg:col-span-1' : ''
+      }`}
+    >
+      <div className="flex items-start justify-between mb-4">
+        <div className="w-10 h-10 rounded-lg bg-accent-teal/10 flex items-center justify-center">
+          <span className="font-mono text-sm text-accent-teal font-bold">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+        </div>
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-text-muted hover:text-accent-teal transition-colors"
+        >
+          <FaGithub size={20} />
+        </a>
+      </div>
+
+      <h3 className="font-display font-bold text-xl mb-3 text-text-primary group-hover:text-accent-teal transition-colors">
+        {project.title}
+      </h3>
+
+      <p className="text-text-secondary text-sm leading-relaxed mb-6 flex-grow">
+        {project.description}
+      </p>
+
+      <div className="flex flex-wrap gap-2 mt-auto">
+        {project.technologies.map((tech) => (
+          <span
+            key={tech}
+            className="font-mono text-xs px-2.5 py-1 rounded border border-surface-border text-text-muted"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
 
 const Projects = () => {
   return (
-    <div className='pb-4'>
-        <motion.h1 whileInView={{y:0,opacity:1}} initial={{y:-50,opacity:0}} transition={{duration:0.7}} className='mb-20 text-center text-4xl'>Projects</motion.h1>
-        <div>
-            {PROJECTS.map((project, index) => (
-                <div key={index} className='mb-20 flex flex-wrap lg:justify-center lg:gap-20'>
-                    <motion.div whileInView={{x:0,opacity:1}} initial={{x:-100,opacity:0}} transition={{duration:0.7}} className='w-full lg:w-1/4 flex justify-center items-center'>
-                        <img src={project.image} width={330} height={300} alt={project.title}  className='mb-6 rounded-md'/>
-                    </motion.div>
-                    <motion.div whileInView={{x:0,opacity:1}} initial={{x:100,opacity:0}} transition={{duration:0.7}} className="w-full max-w-xl lgw-3/4 flex flex-wrap gap-4">
-                        <h6 className='mb-2 font-semibold text-2xl w-full text-center lg:w-screen lg:text-left'>{project.title}</h6>
-                        <p className='mb-4 text-neutral-400'>{project.description}</p>
-                        {project.technologies.map((tech,index) => (
-                            <span key={index} className='mr-2 bg-neutral-900 px-2 py-1 text-sm font-medium text-purple-900 rounded'>{tech}</span>
-                        ))}
-                    </motion.div>
-                </div>
-            ))}
+    <div className="py-28 px-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <span className="font-mono text-sm text-accent-teal">03 /</span>
+          <h2 className="section-heading text-4xl md:text-5xl font-bold mt-2 mb-4">
+            Projects
+          </h2>
+          <p className="text-text-secondary max-w-xl">
+            A selection of AI/ML projects I've built, from multi-agent research systems to production-grade AI pipelines.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {PROJECTS.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="text-center mt-12"
+        >
+          <a
+            href="https://github.com/Sri-Manikandan?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-text-secondary hover:text-accent-teal transition-colors font-mono text-sm"
+          >
+            View all repositories <FaExternalLinkAlt size={12} />
+          </a>
+        </motion.div>
+      </div>
     </div>
   )
 }

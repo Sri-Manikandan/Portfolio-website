@@ -52,7 +52,7 @@ const Hero = () => {
           className="flex flex-wrap items-center justify-center gap-4"
         >
           <a
-            href="https://drive.google.com/file/d/1pVXeYermlbd2KDOfGFYMDc0JVShSXLvD/view?usp=sharing"
+            href="https://drive.google.com/file/d/1G46lfxcWWi9sRgzuN-0mfd651yje56SD/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-2 bg-accent-teal text-surface font-display font-semibold px-7 py-3.5 rounded-full hover:bg-accent-teal/90 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,212,170,0.3)]"
